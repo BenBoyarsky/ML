@@ -2,30 +2,38 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def mean_squared_cost(y, f_wb):
-    m = len(y)
-    return (1 / (2 * m)) * ((f_wb - y) ** 2).sum()
+def mean_squared_error(y_true, y_pred):
+    m = len(y_true)
+    return (1 / (2 * m)) * ((y_pred - y_true) ** 2).sum()
 
-def predict(x, w, b):
-    return np.array(w * x + b)
+def predict(x_true, w, b):
+    return np.array(w * x_true + b)
 
-def LinearRegression(prediction_function)
+def cost_function_graph(cost_function, x_real, y_real):
+    w_vals = []
+    b_vals = []
+    cost_vals = []
+    for w in np.arange(-10, 10, 0.05):
+        for b in np.arange(-10, 10, 0.05):
+            predicted_values = predict(x_real, w, b)
+            w_vals.append(w)
+            b_vals.append(b)
+            cost_vals.append(cost_function(y_real, predicted_values))
 
-def main():
-    data = pd.read_csv("iris_petal_regression.csv")
-    x = np.array(data["petal_length_cm"])
-    y = np.array(data["petal_width_cm"])
-    w = 0.3
-    b = 0
-    f_wb = w*x + b
-    cost = mean_squared_cost(y, f_wb)
-    print(f"Cost: {cost}")
-
-    plt.scatter(x, y, color = "red", marker = "x")
-    plt.xlabel("Petal Length (cm)")
-    plt.ylabel("Petal Width (cm)")
-    plt.plot(x, f_wb)
+    plt.scatter(w_vals, b_vals, c=cost_vals)
+    plt.xlabel("w")
+    plt.ylabel("b")
+    plt.title("Cost Vs. w & b")
     plt.show()
-    
+            
 
-main()
+data = pd.read_csv("iris_petal_regression.csv")
+x = np.array(data["petal_length_cm"])
+y = np.array(data["petal_width_cm"])
+
+cost_function_graph(mean_squared_error, x, y)
+
+
+#CSV file
+#Linear Regression
+#
