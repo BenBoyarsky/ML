@@ -27,7 +27,7 @@ def cost_function_graph(cost_function, x_real, y_real):
     plt.show()
             
 
-data = pd.read_csv("iris_petal_regression.csv")
+data = pd.read_csv("../iris_petal_regression.csv")
 x = np.array(data["petal_length_cm"])
 y = np.array(data["petal_width_cm"])
 
