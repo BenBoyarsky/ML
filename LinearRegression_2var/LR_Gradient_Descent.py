@@ -21,6 +21,7 @@ def gradient_descent(x, y, w_in = 0, b_in = 0, cost_function = mean_square_error
     w_history = [w_in]
     b_history = [b_in]
     cost_history = [cost_function(x, y, w_in, b_in)]
+    min_cost_index = 0
     for i in range(iterations):
         gradient = gradient_function(x, y, w_history[i], b_history[i])
         w = w_history[i] - alpha * gradient[0]
@@ -29,12 +30,16 @@ def gradient_descent(x, y, w_in = 0, b_in = 0, cost_function = mean_square_error
         b_history.append(b)
         cost = cost_function(x, y, w, b)
         cost_history.append(cost)
+        if cost < cost_history[min_cost_index]:
+            min_cost_index = i
 
-    w_best = w_history[5000]
-    b_best = b_history[5000]
+    w_best = round(w_history[min_cost_index], 2)
+    b_best = round(b_history[min_cost_index], 2)
     
-    plt.scatter(x, y, color="blue", marker="x")
-    plt.axline((0, b_best), slope=w_best, color="red", label= f"y = {w_best}x + {b_best}")
+    plt.scatter(x, y, color="blue", marker="x", label="Noisy Data")
+    plt.axline((0, b_best), slope=w_best, color="red", label= f"Best Fit: y = {w_best}x + {b_best}")
+    plt.title("Gradient Descent on Random Data")
+    plt.legend()
     plt.show()
     return w_best, b_best
 
@@ -46,7 +51,6 @@ def main():
     X = data[:,0].copy()
     Y = data[:,1].copy()
     w_best, b_best = gradient_descent(X, Y)
-
 
 if __name__ == '__main__':
     main()
