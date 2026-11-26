@@ -31,11 +31,3 @@ def multiple_linear_data_creator(W: np.ndarray, b: Union[float, int] , x_range: 
     noisyOutputs = actualOutputs + np.random.normal(0, tolerance, actualOutputs.shape)
     noisyOutputsAsColumnVector = np.vstack(noisyOutputs)
     return randomInputs, noisyOutputsAsColumnVector
-
-#n features
-# [ x1_1 x1_2 x1_3 ... x1_n]
-# [ x2_1 x2_2 x2_3 ... x2_n]
-#            .
-#            .
-#           .
-    
